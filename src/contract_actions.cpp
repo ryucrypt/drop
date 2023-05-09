@@ -10,8 +10,9 @@ ACTION drop::create(
 ) {
     require_auth(get_self());
 
-    if (atomicassets::collections.find(target_collection.value) == atomicassets::collections.end())
+    if (atomicassets::collections.find(target_collection.value) == atomicassets::collections.end()) {
         check(false, (target_collection.to_string() + " does not exist").c_str());
+    }
 
     atomicassets::templates_t templates = atomicassets::get_templates(target_collection);
     for (int32_t i : target) {

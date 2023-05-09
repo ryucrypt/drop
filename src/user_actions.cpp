@@ -64,7 +64,9 @@ ACTION drop::claim(
     auto drop_itr = drops.find(drop_id);
     check(drop_itr != drops.end(), "Drop not found");
 
-    check(current_time_point().sec_since_epoch() >= drop_itr->start_time, "Drop has not started");
+    if (drop_itr->start_time > 0) {
+        check(current_time_point().sec_since_epoch() >= drop_itr->start_time, "Drop has not started");
+    }
     if (drop_itr->end_time > 0) {
         check(current_time_point().sec_since_epoch() <= drop_itr->end_time, "Drop already ended");
     }
